@@ -1,0 +1,28 @@
+Создадим пакет my_two_wheel_robot (название любое) для хранения URDF/Xacro, launch-файлов и настроек ros2_control.
+
+cd ~/ros2_ws/src
+ros2 pkg create --build-type ament_cmake my_two_wheel_robot
+
+                  
+Создайте внутри my_two_wheel_robot создайте папки launch/, urdf/ и т. д.:
+
+cd my_two_wheel_robot
+mkdir launch urdf config rviz
+
+                  
+Файл package.xml и CMakeLists.txt будут сгенерированы автоматически.
+
+Добавим зависимости в package.xml :
+
+<depend>robot_state_publisher</depend>
+<depend>xacro</depend>
+<depend>ros2_control</depend>
+<depend>ros2_controllers</depend>
+
+                  
+ Добавим параметры файлов в CMakeLists.txt :
+
+install(
+  DIRECTORY launch urdf config rviz
+  DESTINATION share/${PROJECT_NAME}
+)
