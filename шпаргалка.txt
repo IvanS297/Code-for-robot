@@ -1,0 +1,13 @@
+# 1) Драйвер робота + одометрия
+ros2 run robot_driver robot_driver_node
+
+# 2) Лидар
+sudo ln -sf /dev/serial/by-path/... /dev/ldlidar
+ros2 launch ldlidar_node ldlidar_with_mgr.launch.py
+
+# 3) Статический TF лидара
+ros2 run tf2_ros static_transform_publisher 0 0 0.1 0 0 0 base_link ldlidar_base
+
+# 4) Локализация SLAM Toolbox
+ros2 launch slam_toolbox localization_launch.py \
+  slam_params_file:=~/ros2_ws/src/esp32_bridge/config/slam_localization.yaml
