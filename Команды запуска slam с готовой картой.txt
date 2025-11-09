@@ -1,0 +1,11 @@
+# 2.1 Драйвер робота (одометрия и cmd_vel)
+ros2 run robot_driver robot_driver_node
+
+# 2.2 Привязка USB к имени устройства для лидара (чтобы не «прыгало»)
+sudo ln -sf /dev/serial/by-path/platform-fc800000.usb-usb-0:1.2:1.0-port0 /dev/ldlidar
+
+# 2.3 Лидар
+ros2 launch ldlidar_node ldlidar_with_mgr.launch.py
+
+# 2.4 Статическая трансформация base_link -> ldlidar_base
+ros2 run tf2_ros static_transform_publisher 0 0 0.1  0 0 0  base_link ldlidar_base
